@@ -199,13 +199,21 @@ fn handle_running_state(watchers: &mut Watchers, settings: &Settings) {
         }
     }
 
+
     if let Some(traya_state) = &watchers.traya_battle_state.pair {
-        if traya_state.current == 3 && !watchers.did_final_split {
-            watchers.did_final_split = true;
-            timer::split();
-            asr::print_message("Final split at Traya battle.");
+        if let Some(area) = &watchers.area.pair { // Ensure `area` is available
+            if area.current.validate_utf8().unwrap_or("<Invalid UTF-8>").to_uppercase() == "904MAL"
+                && traya_state.current == 3
+                && traya_state.current != traya_state.old
+                && !watchers.did_final_split
+                {
+                    watchers.did_final_split = true;
+                    timer::split();
+                    asr::print_message("Final split at Traya battle.");
+                }
         }
     }
+
 }
 
 fn start_timer(watchers: &Watchers, settings: &Settings) -> bool {
@@ -235,109 +243,109 @@ fn should_split(
 
     match area_str.as_str() {
         // EBON HAWK
-        "002EBO" => settings._002EBO && (settings._002EBO_unlim || !entered_areas.contains(area)),
-        "003EBO" => settings._003EBO && (settings._003EBO_unlim || !entered_areas.contains(area)),
-        "004EBO" => settings._004EBO && (settings._004EBO_unlim || !entered_areas.contains(area)),
-        "005EBO" => settings._005EBO && (settings._005EBO_unlim || !entered_areas.contains(area)),
-        "006EBO" => settings._006EBO && (settings._006EBO_unlim || !entered_areas.contains(area)),
-        "007EBO" => settings._007EBO && (settings._007EBO_unlim || !entered_areas.contains(area)),
+        "002EBO" => settings.split_002EBO && (settings.split_002EBO_unlim || !entered_areas.contains(area)),
+        "003EBO" => settings.split_003EBO && (settings.split_003EBO_unlim || !entered_areas.contains(area)),
+        "004EBO" => settings.split_004EBO && (settings.split_004EBO_unlim || !entered_areas.contains(area)),
+        "005EBO" => settings.split_005EBO && (settings.split_005EBO_unlim || !entered_areas.contains(area)),
+        "006EBO" => settings.split_006EBO && (settings.split_006EBO_unlim || !entered_areas.contains(area)),
+        "007EBO" => settings.split_007EBO && (settings.split_007EBO_unlim || !entered_areas.contains(area)),
 
         // PERAGUS
-        "101PER" => settings._101PER && (settings._101PER_unlim || !entered_areas.contains(area)),
-        "102PER" => settings._102PER && (settings._102PER_unlim || !entered_areas.contains(area)),
-        "103PER" => settings._103PER && (settings._103PER_unlim || !entered_areas.contains(area)),
-        "104PER" => settings._104PER && (settings._104PER_unlim || !entered_areas.contains(area)),
-        "105PER" => settings._105PER && (settings._105PER_unlim || !entered_areas.contains(area)),
-        "106PER" => settings._106PER && (settings._106PER_unlim || !entered_areas.contains(area)),
-        "107PER" => settings._107PER && (settings._107PER_unlim || !entered_areas.contains(area)),
+        "101PER" => settings.split_101PER && (settings.split_101PER_unlim || !entered_areas.contains(area)),
+        "102PER" => settings.split_102PER && (settings.split_102PER_unlim || !entered_areas.contains(area)),
+        "103PER" => settings.split_103PER && (settings.split_103PER_unlim || !entered_areas.contains(area)),
+        "104PER" => settings.split_104PER && (settings.split_104PER_unlim || !entered_areas.contains(area)),
+        "105PER" => settings.split_105PER && (settings.split_105PER_unlim || !entered_areas.contains(area)),
+        "106PER" => settings.split_106PER && (settings.split_106PER_unlim || !entered_areas.contains(area)),
+        "107PER" => settings.split_107PER && (settings.split_107PER_unlim || !entered_areas.contains(area)),
 
         // HARBINGER
-        "151HAR" => settings._151HAR && (settings._151HAR_unlim || !entered_areas.contains(area)),
-        "152HAR" => settings._152HAR && (settings._152HAR_unlim || !entered_areas.contains(area)),
-        "153HAR" => settings._153HAR && (settings._153HAR_unlim || !entered_areas.contains(area)),
-        "154HAR" => settings._154HAR && (settings._154HAR_unlim || !entered_areas.contains(area)),
+        "151HAR" => settings.split_151HAR && (settings.split_151HAR_unlim || !entered_areas.contains(area)),
+        "152HAR" => settings.split_152HAR && (settings.split_152HAR_unlim || !entered_areas.contains(area)),
+        "153HAR" => settings.split_153HAR && (settings.split_153HAR_unlim || !entered_areas.contains(area)),
+        "154HAR" => settings.split_154HAR && (settings.split_154HAR_unlim || !entered_areas.contains(area)),
 
         // TELOS - CITADEL STATION
-        "201TEL" => settings._201TEL && (settings._201TEL_unlim || !entered_areas.contains(area)),
-        "202TEL" => settings._202TEL && (settings._202TEL_unlim || !entered_areas.contains(area)),
-        "203TEL" => settings._203TEL && (settings._203TEL_unlim || !entered_areas.contains(area)),
-        "204TEL" => settings._204TEL && (settings._204TEL_unlim || !entered_areas.contains(area)),
-        "205TEL" => settings._205TEL && (settings._205TEL_unlim || !entered_areas.contains(area)),
-        "207TEL" => settings._207TEL && (settings._207TEL_unlim || !entered_areas.contains(area)),
-        "208TEL" => settings._208TEL && (settings._208TEL_unlim || !entered_areas.contains(area)),
-        "209TEL" => settings._209TEL && (settings._209TEL_unlim || !entered_areas.contains(area)),
-        "211TEL" => settings._211TEL && (settings._211TEL_unlim || !entered_areas.contains(area)),
-        "220TEL" => settings._220TEL && (settings._220TEL_unlim || !entered_areas.contains(area)),
-        "221TEL" => settings._221TEL && (settings._221TEL_unlim || !entered_areas.contains(area)),
-        "222TEL" => settings._222TEL && (settings._222TEL_unlim || !entered_areas.contains(area)),
+        "201TEL" => settings.split_201TEL && (settings.split_201TEL_unlim || !entered_areas.contains(area)),
+        "202TEL" => settings.split_202TEL && (settings.split_202TEL_unlim || !entered_areas.contains(area)),
+        "203TEL" => settings.split_203TEL && (settings.split_203TEL_unlim || !entered_areas.contains(area)),
+        "204TEL" => settings.split_204TEL && (settings.split_204TEL_unlim || !entered_areas.contains(area)),
+        "205TEL" => settings.split_205TEL && (settings.split_205TEL_unlim || !entered_areas.contains(area)),
+        "207TEL" => settings.split_207TEL && (settings.split_207TEL_unlim || !entered_areas.contains(area)),
+        "208TEL" => settings.split_208TEL && (settings.split_208TEL_unlim || !entered_areas.contains(area)),
+        "209TEL" => settings.split_209TEL && (settings.split_209TEL_unlim || !entered_areas.contains(area)),
+        "211TEL" => settings.split_211TEL && (settings.split_211TEL_unlim || !entered_areas.contains(area)),
+        "220TEL" => settings.split_220TEL && (settings.split_220TEL_unlim || !entered_areas.contains(area)),
+        "221TEL" => settings.split_221TEL && (settings.split_221TEL_unlim || !entered_areas.contains(area)),
+        "222TEL" => settings.split_222TEL && (settings.split_222TEL_unlim || !entered_areas.contains(area)),
 
         // TELOS - SURFACE
-        "231TEL" => settings._231TEL && (settings._231TEL_unlim || !entered_areas.contains(area)),
-        "232TEL" => settings._232TEL && (settings._232TEL_unlim || !entered_areas.contains(area)),
-        "233TEL" => settings._233TEL && (settings._233TEL_unlim || !entered_areas.contains(area)),
-        "261TEL" => settings._261TEL && (settings._261TEL_unlim || !entered_areas.contains(area)),
-        "262TEL" => settings._262TEL && (settings._262TEL_unlim || !entered_areas.contains(area)),
-        "950COR" => settings._950COR && (settings._950COR_unlim || !entered_areas.contains(area)),
+        "231TEL" => settings.split_231TEL && (settings.split_231TEL_unlim || !entered_areas.contains(area)),
+        "232TEL" => settings.split_232TEL && (settings.split_232TEL_unlim || !entered_areas.contains(area)),
+        "233TEL" => settings.split_233TEL && (settings.split_233TEL_unlim || !entered_areas.contains(area)),
+        "261TEL" => settings.split_261TEL && (settings.split_261TEL_unlim || !entered_areas.contains(area)),
+        "262TEL" => settings.split_262TEL && (settings.split_262TEL_unlim || !entered_areas.contains(area)),
+        "950COR" => settings.split_950COR && (settings.split_950COR_unlim || !entered_areas.contains(area)),
 
         // NAR SHADDAA
-        "301NAR" => settings._301NAR && (settings._301NAR_unlim || !entered_areas.contains(area)),
-        "302NAR" => settings._302NAR && (settings._302NAR_unlim || !entered_areas.contains(area)),
-        "303NAR" => settings._303NAR && (settings._303NAR_unlim || !entered_areas.contains(area)),
-        "304NAR" => settings._304NAR && (settings._304NAR_unlim || !entered_areas.contains(area)),
-        "305NAR" => settings._305NAR && (settings._305NAR_unlim || !entered_areas.contains(area)),
-        "306NAR" => settings._306NAR && (settings._306NAR_unlim || !entered_areas.contains(area)),
-        "351NAR" => settings._351NAR && (settings._351NAR_unlim || !entered_areas.contains(area)),
-        "352NAR" => settings._352NAR && (settings._352NAR_unlim || !entered_areas.contains(area)),
-        "371NAR" => settings._371NAR && (settings._371NAR_unlim || !entered_areas.contains(area)),
+        "301NAR" => settings.split_301NAR && (settings.split_301NAR_unlim || !entered_areas.contains(area)),
+        "302NAR" => settings.split_302NAR && (settings.split_302NAR_unlim || !entered_areas.contains(area)),
+        "303NAR" => settings.split_303NAR && (settings.split_303NAR_unlim || !entered_areas.contains(area)),
+        "304NAR" => settings.split_304NAR && (settings.split_304NAR_unlim || !entered_areas.contains(area)),
+        "305NAR" => settings.split_305NAR && (settings.split_305NAR_unlim || !entered_areas.contains(area)),
+        "306NAR" => settings.split_306NAR && (settings.split_306NAR_unlim || !entered_areas.contains(area)),
+        "351NAR" => settings.split_351NAR && (settings.split_351NAR_unlim || !entered_areas.contains(area)),
+        "352NAR" => settings.split_352NAR && (settings.split_352NAR_unlim || !entered_areas.contains(area)),
+        "371NAR" => settings.split_371NAR && (settings.split_371NAR_unlim || !entered_areas.contains(area)),
 
         // DXUN
-        "401DXN" => settings._401DXN && (settings._401DXN_unlim || !entered_areas.contains(area)),
-        "402DXN" => settings._402DXN && (settings._402DXN_unlim || !entered_areas.contains(area)),
-        "403DXN" => settings._403DXN && (settings._403DXN_unlim || !entered_areas.contains(area)),
-        "404DXN" => settings._404DXN && (settings._404DXN_unlim || !entered_areas.contains(area)),
-        "410DXN" => settings._410DXN && (settings._410DXN_unlim || !entered_areas.contains(area)),
-        "411DXN" => settings._411DXN && (settings._411DXN_unlim || !entered_areas.contains(area)),
-        "421DXN" => settings._421DXN && (settings._421DXN_unlim || !entered_areas.contains(area)),
+        "401DXN" => settings.split_401DXN && (settings.split_401DXN_unlim || !entered_areas.contains(area)),
+        "402DXN" => settings.split_402DXN && (settings.split_402DXN_unlim || !entered_areas.contains(area)),
+        "403DXN" => settings.split_403DXN && (settings.split_403DXN_unlim || !entered_areas.contains(area)),
+        "404DXN" => settings.split_404DXN && (settings.split_404DXN_unlim || !entered_areas.contains(area)),
+        "410DXN" => settings.split_410DXN && (settings.split_410DXN_unlim || !entered_areas.contains(area)),
+        "411DXN" => settings.split_411DXN && (settings.split_411DXN_unlim || !entered_areas.contains(area)),
+        "421DXN" => settings.split_421DXN && (settings.split_421DXN_unlim || !entered_areas.contains(area)),
 
         // ONDERON
-        "501OND" => settings._501OND && (settings._501OND_unlim || !entered_areas.contains(area)),
-        "502OND" => settings._502OND && (settings._502OND_unlim || !entered_areas.contains(area)),
-        "503OND" => settings._503OND && (settings._503OND_unlim || !entered_areas.contains(area)),
-        "504OND" => settings._504OND && (settings._504OND_unlim || !entered_areas.contains(area)),
-        "505OND" => settings._505OND && (settings._505OND_unlim || !entered_areas.contains(area)),
-        "506OND" => settings._506OND && (settings._506OND_unlim || !entered_areas.contains(area)),
-        "510OND" => settings._510OND && (settings._510OND_unlim || !entered_areas.contains(area)),
-        "511OND" => settings._511OND && (settings._511OND_unlim || !entered_areas.contains(area)),
-        "512OND" => settings._512OND && (settings._512OND_unlim || !entered_areas.contains(area)),
+        "501OND" => settings.split_501OND && (settings.split_501OND_unlim || !entered_areas.contains(area)),
+        "502OND" => settings.split_502OND && (settings.split_502OND_unlim || !entered_areas.contains(area)),
+        "503OND" => settings.split_503OND && (settings.split_503OND_unlim || !entered_areas.contains(area)),
+        "504OND" => settings.split_504OND && (settings.split_504OND_unlim || !entered_areas.contains(area)),
+        "505OND" => settings.split_505OND && (settings.split_505OND_unlim || !entered_areas.contains(area)),
+        "506OND" => settings.split_506OND && (settings.split_506OND_unlim || !entered_areas.contains(area)),
+        "510OND" => settings.split_510OND && (settings.split_510OND_unlim || !entered_areas.contains(area)),
+        "511OND" => settings.split_511OND && (settings.split_511OND_unlim || !entered_areas.contains(area)),
+        "512OND" => settings.split_512OND && (settings.split_512OND_unlim || !entered_areas.contains(area)),
 
         // DANTOOINE
-        "601DAN" => settings._601DAN && (settings._601DAN_unlim || !entered_areas.contains(area)),
-        "602DAN" => settings._602DAN && (settings._602DAN_unlim || !entered_areas.contains(area)),
-        "603DAN" => settings._603DAN && (settings._603DAN_unlim || !entered_areas.contains(area)),
-        "604DAN" => settings._604DAN && (settings._604DAN_unlim || !entered_areas.contains(area)),
-        "605DAN" => settings._605DAN && (settings._605DAN_unlim || !entered_areas.contains(area)),
-        "610DAN" => settings._610DAN && (settings._610DAN_unlim || !entered_areas.contains(area)),
-        "650DAN" => settings._650DAN && (settings._650DAN_unlim || !entered_areas.contains(area)),
+        "601DAN" => settings.split_601DAN && (settings.split_601DAN_unlim || !entered_areas.contains(area)),
+        "602DAN" => settings.split_602DAN && (settings.split_602DAN_unlim || !entered_areas.contains(area)),
+        "603DAN" => settings.split_603DAN && (settings.split_603DAN_unlim || !entered_areas.contains(area)),
+        "604DAN" => settings.split_604DAN && (settings.split_604DAN_unlim || !entered_areas.contains(area)),
+        "605DAN" => settings.split_605DAN && (settings.split_605DAN_unlim || !entered_areas.contains(area)),
+        "610DAN" => settings.split_610DAN && (settings.split_610DAN_unlim || !entered_areas.contains(area)),
+        "650DAN" => settings.split_650DAN && (settings.split_650DAN_unlim || !entered_areas.contains(area)),
 
         // KORRIBAN
-        "701KOR" => settings._701KOR && (settings._701KOR_unlim || !entered_areas.contains(area)),
-        "702KOR" => settings._702KOR && (settings._702KOR_unlim || !entered_areas.contains(area)),
-        "710KOR" => settings._710KOR && (settings._710KOR_unlim || !entered_areas.contains(area)),
-        "711KOR" => settings._711KOR && (settings._711KOR_unlim || !entered_areas.contains(area)),
+        "701KOR" => settings.split_701KOR && (settings.split_701KOR_unlim || !entered_areas.contains(area)),
+        "702KOR" => settings.split_702KOR && (settings.split_702KOR_unlim || !entered_areas.contains(area)),
+        "710KOR" => settings.split_710KOR && (settings.split_710KOR_unlim || !entered_areas.contains(area)),
+        "711KOR" => settings.split_711KOR && (settings.split_711KOR_unlim || !entered_areas.contains(area)),
 
         // RAVAGER
-        "851NIH" => settings._851NIH && (settings._851NIH_unlim || !entered_areas.contains(area)),
-        "852NIH" => settings._852NIH && (settings._852NIH_unlim || !entered_areas.contains(area)),
-        "853NIH" => settings._853NIH && (settings._853NIH_unlim || !entered_areas.contains(area)),
+        "851NIH" => settings.split_851NIH && (settings.split_851NIH_unlim || !entered_areas.contains(area)),
+        "852NIH" => settings.split_852NIH && (settings.split_852NIH_unlim || !entered_areas.contains(area)),
+        "853NIH" => settings.split_853NIH && (settings.split_853NIH_unlim || !entered_areas.contains(area)),
 
         // MALACHOR V
-        "901MAL" => settings._901MAL && (settings._901MAL_unlim || !entered_areas.contains(area)),
-        "902MAL" => settings._902MAL && (settings._902MAL_unlim || !entered_areas.contains(area)),
-        "903MAL" => settings._903MAL && (settings._903MAL_unlim || !entered_areas.contains(area)),
-        "904MAL" => settings._904MAL && (settings._904MAL_unlim || !entered_areas.contains(area)),
-        "905MAL" => settings._905MAL && (settings._905MAL_unlim || !entered_areas.contains(area)),
-        "906MAL" => settings._906MAL && (settings._906MAL_unlim || !entered_areas.contains(area)),
-        "907MAL" => settings._907MAL && (settings._907MAL_unlim || !entered_areas.contains(area)),
+        "901MAL" => settings.split_901MAL && (settings.split_901MAL_unlim || !entered_areas.contains(area)),
+        "902MAL" => settings.split_902MAL && (settings.split_902MAL_unlim || !entered_areas.contains(area)),
+        "903MAL" => settings.split_903MAL && (settings.split_903MAL_unlim || !entered_areas.contains(area)),
+        "904MAL" => settings.split_904MAL && (settings.split_904MAL_unlim || !entered_areas.contains(area)),
+        "905MAL" => settings.split_905MAL && (settings.split_905MAL_unlim || !entered_areas.contains(area)),
+        "906MAL" => settings.split_906MAL && (settings.split_906MAL_unlim || !entered_areas.contains(area)),
+        "907MAL" => settings.split_907MAL && (settings.split_907MAL_unlim || !entered_areas.contains(area)),
 
         _ => false,
     }
