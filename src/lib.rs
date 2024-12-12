@@ -243,7 +243,7 @@ fn should_split(
 
     match area_str.as_str() {
         // EBON HAWK
-        "001EBO" => settings.split_001EBO && (settings.split_001EBO_unlim || !centered_areas.contains(area)),
+        "001EBO" => settings.split_001EBO && (settings.split_001EBO_unlim || !entered_areas.contains(area)),
         "002EBO" => settings.split_002EBO && (settings.split_002EBO_unlim || !entered_areas.contains(area)),
         "003EBO" => settings.split_003EBO && (settings.split_003EBO_unlim || !entered_areas.contains(area)),
         "004EBO" => settings.split_004EBO && (settings.split_004EBO_unlim || !entered_areas.contains(area)),
