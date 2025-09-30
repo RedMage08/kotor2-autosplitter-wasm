@@ -1,5 +1,8 @@
+#![allow(non_camel_case_types)]
+#![allow(non_snake_case)]
 use asr::settings::gui::Title;
 use asr::settings::Gui;
+
 
 #[derive(Gui)]
 pub struct Settings {
@@ -8,11 +11,7 @@ pub struct Settings {
     /// Ebon Hawk Splits
     title_ebo_splits: Title,
 
-    /// 001EBO - Interior (Tutorial)
-    #[default = false]
-    pub split_001EBO: bool,
-
-    /// 001EBO Unlimited Splits
+    /// 001EBO - Interior (Tutorial) Unlimited Splits
     #[default = false]
     pub split_001EBO_unlim: bool,
 
