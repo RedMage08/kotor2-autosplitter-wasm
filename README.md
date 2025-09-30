@@ -1,13 +1,6 @@
-# Kotor2 Autosplitter
+# kotor2
 
-An auto splitter for Star Wars: Knights of the Old Republic II: The Sith Lords.
-- Pauses the timer when in a loading or saving screen, unless an AMG is activated or the window is clicked out of.
-- Includes settings for splitting on the first time entering each module, as well as unlimited splits for every module in the game.
-- Auto starts on loading the New Game into the prologue and ends time when killing Traya in the final module.
-
-## Release
-
-Latest version will always be found at https://github.com/RedMage08/kotor2-autosplitter-wasm/releases/latest/download/k2.wasm
+An auto splitter for Swkotor2.
 
 ## Compilation
 
@@ -26,7 +19,30 @@ cargo b --release
 
 The auto splitter is then available at:
 ```
-target/wasm32-unknown-unknown/release/k2.wasm
+target/wasm32-unknown-unknown/release/kotor2.wasm
 ```
 
 Make sure to look into the [API documentation](https://livesplit.org/asr/asr/) for the `asr` crate.
+
+## Development
+
+You can use the [debugger](https://github.com/LiveSplit/asr-debugger) while
+developing the auto splitter to more easily see the log messages, statistics,
+dump memory, step through the code and more.
+
+The repository comes with preconfigured Visual Studio Code tasks. During
+development it is recommended to use the `Debug Auto Splitter` launch action to
+run the `asr-debugger`. You need to install the `CodeLLDB` extension to run it.
+
+You can then use the `Build Auto Splitter (Debug)` task to manually build the
+auto splitter. This will automatically hot reload the auto splitter in the
+`asr-debugger`.
+
+Alternatively you can install the [`cargo
+watch`](https://github.com/watchexec/cargo-watch?tab=readme-ov-file#install)
+subcommand and run the `Watch Auto Splitter` task for it to automatically build
+when you save your changes.
+
+The debugger is able to step through the code. You can set breakpoints in VSCode
+and it should stop there when the breakpoint is hit. Inspecting variables may
+not work all the time.

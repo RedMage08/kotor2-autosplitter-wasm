@@ -1,5 +1,5 @@
 [package]
-name = "k2"
+name = "kotor2"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 asr = { git = "https://github.com/LiveSplit/asr", features = [
-    # "alloc", # Working with allocations.
+   # "alloc", # Working with allocations.
     "derive", # Defining your own settings structs, converting endianness, and binding to .NET classes.
     # "flags", # Working with bit flags.
     # "float-vars", # Setting floating point variables.
@@ -27,6 +27,8 @@ asr = { git = "https://github.com/LiveSplit/asr", features = [
 
 # Bytemuck can be used to define structs that are being read from the game's process.
 bytemuck = { version = "1", features = ["derive", "min_const_generics"] }
+# Heap allocator
+dlmalloc = { version = "0.2.4", features = ["global"] }
 
 [lib]
 crate-type = ["cdylib"]
