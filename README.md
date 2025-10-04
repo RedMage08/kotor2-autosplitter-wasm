@@ -7,7 +7,7 @@ An auto splitter for Star Wars: Knights of the Old Republic II: The Sith Lords.
 
 ## Release
 
-Latest version will always be found at https://github.com/RedMage08/kotor2-autosplitter-wasm/releases/latest/download/k2.wasm
+Latest version will always be found [here](https://github.com/RedMage08/kotor2-autosplitter-wasm/releases/latest/download/kotor2.wasm)
 
 ## Compilation
 
