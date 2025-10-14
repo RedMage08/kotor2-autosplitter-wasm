@@ -239,7 +239,7 @@ impl AreaCode {
         match self {
 
         // EBON HAWK
-        Self::a001EBO => settings.split_001EBO_unlim || !entered_areas.contains(self),
+        Self::a001EBO => settings.split_001EBO && (settings.split_001EBO_unlim || !entered_areas.contains(self)),
         Self::a002EBO => settings.split_002EBO && (settings.split_002EBO_unlim || !entered_areas.contains(self)),
         Self::a003EBO => settings.split_003EBO && (settings.split_003EBO_unlim || !entered_areas.contains(self)),
         Self::a004EBO => settings.split_004EBO && (settings.split_004EBO_unlim || !entered_areas.contains(self)),
@@ -351,6 +351,7 @@ impl AreaCode {
 pub enum GameVersion {
     Steam,
     GOG,
+    //Linux,
     Unknown(String),
 }
 
@@ -359,6 +360,7 @@ impl From<&str> for GameVersion {
         match s.to_uppercase().as_str() {
             "STEAM" => Self::Steam,
             "GOG" => Self::GOG,
+          //"LINUX" ==> Self::Linux,
             other => Self::Unknown(other.to_string()),
         }
     }
