@@ -11,7 +11,11 @@ pub struct Settings {
     /// Ebon Hawk Splits
     title_ebo_splits: Title,
 
-    /// 001EBO - Interior (Tutorial) Unlimited Splits
+    /// 001EBO - Interior (Tutorial)
+    #[default = false]
+    pub split_001EBO: bool,
+
+    /// 001EBO - Unlimited Splits
     #[default = false]
     pub split_001EBO_unlim: bool,
 
