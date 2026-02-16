@@ -57,7 +57,6 @@ async fn main() {
                                 timer::start();
                             }
                         }
-                        TimerState::Ended => timer::reset(),
                         _ => {}
                     }
 
